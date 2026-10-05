@@ -32,10 +32,10 @@ The user needs a professional portfolio deployable for free (GitHub Pages / Verc
 ## Tasks
 - [x] T1 Scaffold Next.js + TS + Tailwind v4 + Vitest, static export config — route: delegated writer (2+ non-trivial files) — commit 9f861ac
 - [x] T2 Theme tokens (`theme.css`) with derived variations + global cybercore effects — route: delegated writer — commit d71b9bf
-- [ ] T3 Content model (`types.ts`, `es.ts`, `index.ts`) with tests — route: delegated writer
+- [x] T3 Content model (`types.ts`, `es.ts`, `index.ts`) with tests — route: delegated writer — commit ba467e9
 - [x] T4 UI primitives + sections with tests (includes ThemeToggle, theme store and head script module) — route: delegated writer
 - [x] T5 SEO metadata, OG image, root layout with no-flash theme script, robots/sitemap/icon — route: delegated writer
-- [x] T6 README with deploy instructions + GitHub Pages workflow — route: delegated writer
+- [x] T6 README with deploy instructions + GitHub Pages workflow — route: delegated writer — commit f73a6f8
 
 ## Acceptance criteria
 - `npm run build` produces static `out/`; `npm test`, `npm run lint`, `tsc --noEmit` pass.
@@ -50,7 +50,7 @@ The user needs a professional portfolio deployable for free (GitHub Pages / Verc
 - T4: RED 9 test files failing (components missing) + page tests failing (4) -> GREEN 65 passed; lint + tsc clean. Fixes during GREEN: jsdom lacks matchMedia (stub in tests/setup.ts); panel header changed to div to avoid duplicate banner landmarks; JSX comment text node lint error.
 - T5: RED `tests/metadata.test.ts` (module missing) -> GREEN (70 passed); `npm run build` produces `out/index.html`, `opengraph-image` (PNG 1200x630), robots.txt, sitemap.xml; verified og:image URL with `NEXT_PUBLIC_BASE_PATH=/portfolio` + `NEXT_PUBLIC_SITE_URL`. No browser available locally, so visual/responsive check was not run.
 - T6: RED `tests/deploy.test.ts` (4 failed, files missing) -> GREEN (74 passed).
-- Commits: T1 9f861ac, T2 d71b9bf, T3 ba467e9, T4 0d46b33, T5 500b225, T6 see `git log`.
+- Commits: T1 9f861ac, T2 d71b9bf, T3 ba467e9, T4 0d46b33, T5 500b225, T6 f73a6f8.
 - Final verification: npm test 74 passed; lint clean; tsc clean; build produces out/index.html; no phone/tel in src or generated HTML/TXT/XML/CSS (framework JS chunks only false-positive on `tel:` input type and digit runs).
 
 ## Next step
