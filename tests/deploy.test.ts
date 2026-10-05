@@ -22,6 +22,25 @@ describe("GitHub Pages workflow", () => {
   });
 });
 
+describe("GitHub Pages workflow safety", () => {
+  it("never cancels an in-flight Pages deployment", () => {
+    const wf = read(".github/workflows/deploy.yml");
+    expect(wf).toMatch(/group:\s*pages/);
+    expect(wf).toMatch(/cancel-in-progress:\s*false/);
+    expect(wf).not.toMatch(/cancel-in-progress:\s*true/);
+  });
+
+  it("scopes write permissions to the deploy job only", () => {
+    const wf = read(".github/workflows/deploy.yml");
+    const [top, jobs] = wf.split(/^jobs:/m);
+    expect(top).toMatch(/contents:\s*read/);
+    expect(top).not.toMatch(/pages:\s*write|id-token:\s*write/);
+    const deploy = jobs.slice(jobs.indexOf("  deploy:"));
+    expect(deploy).toMatch(/pages:\s*write/);
+    expect(deploy).toMatch(/id-token:\s*write/);
+  });
+});
+
 describe("README", () => {
   const readme = () => read("README.md");
 
