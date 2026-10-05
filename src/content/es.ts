@@ -11,7 +11,7 @@ export const es: SiteContent = {
     title: "Ingeniero de Software",
     location: "Temuco, Chile",
     shortPhrase:
-      "Construyo software en producción para la industria minera: de la PWA en terreno a la nube.",
+      "Desarrollo software full-stack con C#/.NET, Node.js, TypeScript y React, desde la API hasta la nube con Azure, Docker y CI/CD.",
     email: "mgryal.d@gmail.com",
     linkedin: "https://www.linkedin.com/in/maximiliano-gonzalez-67108418b",
     github: "https://github.com/mgryal",
