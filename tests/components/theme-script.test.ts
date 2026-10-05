@@ -25,11 +25,23 @@ describe("THEME_SCRIPT (runs in <head> before paint)", () => {
     expect(document.documentElement.dataset.theme).toBe("dark");
   });
 
-  it("falls back to dark when storage and matchMedia fail", () => {
+  it("falls back to dark when matchMedia throws", () => {
     vi.stubGlobal("matchMedia", () => {
       throw new Error("nope");
     });
     new Function(THEME_SCRIPT)();
     expect(document.documentElement.dataset.theme).toBe("dark");
+  });
+
+  it("falls back to the system preference when localStorage throws", () => {
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("blocked");
+    });
+    try {
+      run(true);
+      expect(document.documentElement.dataset.theme).toBe("light");
+    } finally {
+      vi.restoreAllMocks();
+    }
   });
 });

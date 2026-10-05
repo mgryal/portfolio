@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import Page from "@/app/page";
 import { getContent } from "@/content";
@@ -32,5 +32,13 @@ describe("Home page", () => {
   it("renders the four work projects with a private note and no project links", () => {
     render(<Page />);
     expect(screen.getAllByText(content.ui.privateProject)).toHaveLength(4);
+    const workProjects = content.projects.filter((p) => p.kind === "work");
+    expect(workProjects).toHaveLength(4);
+    for (const project of workProjects) {
+      expect(project.links).toBeUndefined();
+      const card = screen.getByRole("heading", { name: project.title }).closest("article") as HTMLElement;
+      expect(card).not.toBeNull();
+      expect(within(card).queryAllByRole("link")).toHaveLength(0);
+    }
   });
 });

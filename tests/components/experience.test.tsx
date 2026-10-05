@@ -9,7 +9,7 @@ const content = getContent("es");
 describe("Experience", () => {
   it("renders the employer name from the single Kronogram constant", () => {
     render(<Experience items={content.experience} presentLabel={content.ui.present} />);
-    expect(screen.getByText(new RegExp(KRONOGRAM_NAME))).toBeInTheDocument();
+    expect(screen.getByText(KRONOGRAM_NAME, { exact: false })).toBeInTheDocument();
   });
 
   it("renders timeline timestamps, with PRESENTE for the current role", () => {
