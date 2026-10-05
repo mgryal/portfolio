@@ -34,7 +34,7 @@ The user needs a professional portfolio deployable for free (GitHub Pages / Verc
 - [x] T2 Theme tokens (`theme.css`) with derived variations + global cybercore effects — route: delegated writer — commit d71b9bf
 - [ ] T3 Content model (`types.ts`, `es.ts`, `index.ts`) with tests — route: delegated writer
 - [x] T4 UI primitives + sections with tests (includes ThemeToggle, theme store and head script module) — route: delegated writer
-- [ ] T5 SEO metadata, OG image, theme toggle (no flash) — route: delegated writer
+- [x] T5 SEO metadata, OG image, root layout with no-flash theme script, robots/sitemap/icon — route: delegated writer
 - [ ] T6 README with deploy instructions + GitHub Pages workflow — route: delegated writer
 
 ## Acceptance criteria
@@ -48,6 +48,7 @@ The user needs a professional portfolio deployable for free (GitHub Pages / Verc
 - T2: RED `tests/theme.test.ts` + `tests/palette.test.ts` (26 failed, theme.css missing; palette import unresolved) -> GREEN (30 passed). First run found muted text on surface-2 at 4.28:1 in light mode; raised muted mix to 76% fg. Contrast (dark/light): fg/bg 13.85/14.72, muted/bg 7.48/7.84, muted/surface-2 5.98/5.44, accent/bg 15.04/5.85, accent-2/bg 10.99/5.97.
 - T3: RED `tests/content.test.ts` (module missing) -> GREEN (38 passed overall). Test initially flagged the LinkedIn id as phone-like; URLs are stripped before the phone regex.
 - T4: RED 9 test files failing (components missing) + page tests failing (4) -> GREEN 65 passed; lint + tsc clean. Fixes during GREEN: jsdom lacks matchMedia (stub in tests/setup.ts); panel header changed to div to avoid duplicate banner landmarks; JSX comment text node lint error.
+- T5: RED `tests/metadata.test.ts` (module missing) -> GREEN (70 passed); `npm run build` produces `out/index.html`, `opengraph-image` (PNG 1200x630), robots.txt, sitemap.xml; verified og:image URL with `NEXT_PUBLIC_BASE_PATH=/portfolio` + `NEXT_PUBLIC_SITE_URL`. No browser available locally, so visual/responsive check was not run.
 
 ## Next step
 T4 UI primitives and sections.
