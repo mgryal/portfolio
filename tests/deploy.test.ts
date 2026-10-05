@@ -39,6 +39,13 @@ describe("GitHub Pages workflow safety", () => {
     expect(deploy).toMatch(/pages:\s*write/);
     expect(deploy).toMatch(/id-token:\s*write/);
   });
+
+  it("lets the build job read the Pages config for configure-pages", () => {
+    const wf = read(".github/workflows/deploy.yml");
+    const jobs = wf.split(/^jobs:/m)[1];
+    const build = jobs.slice(jobs.indexOf("  build:"), jobs.indexOf("  deploy:"));
+    expect(build).toMatch(/permissions:\s*\n\s*contents:\s*read\s*\n\s*pages:\s*read/);
+  });
 });
 
 describe("README", () => {
