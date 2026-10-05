@@ -61,3 +61,4 @@ User review: check the site visually (no browser available in the writer environ
 - RDD: assessed high (deploy.yml shell); consent granted; 4-lens review approved and acknowledged (lineage review-db0780ff40c7023d, range 9f861ac..3690116). 17 non-blocking advisory findings (contact data duplication, Pages concurrency cancel-in-progress, test naming) left as follow-ups.
 - Follow-ups fixed: Pages concurrency/permissions (352af93); theme script storage fallback + test naming/assertions in page, theme-script, experience tests (68e6fac); contact single source of truth + Contact iteration + ProjectCard Tags label moved to es.ts (f377c74).
 - Pending: visual check at 375/768/1440 in both modes; set NEXT_PUBLIC_SITE_URL.
+- Follow-up: build job granted `pages: read` for configure-pages (3ac8bb0). Reviews approved+acknowledged (review-3e8e43d5ce9f31e1, review-112ec6c937012608); remaining advisory findings are test-style suggestions only.
