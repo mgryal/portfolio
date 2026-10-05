@@ -7,6 +7,7 @@ export function Projects({ projects, ui }: { projects: SiteContent["projects"]; 
     demo: ui.projectsLinks.demo,
     repo: ui.projectsLinks.repo,
     opensInNewTab: ui.opensInNewTab,
+    tagsLabel: ui.tagsLabel,
   };
   return (
     <ul className="grid gap-5 md:grid-cols-2">

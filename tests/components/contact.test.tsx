@@ -7,7 +7,7 @@ const content = getContent("es");
 
 describe("Contact", () => {
   it("renders mailto, LinkedIn and GitHub hrefs exactly", () => {
-    render(<Contact profile={content.profile} contact={content.contact} opensInNewTab={content.ui.opensInNewTab} />);
+    render(<Contact contact={content.contact} opensInNewTab={content.ui.opensInNewTab} />);
     expect(screen.getByRole("link", { name: /Correo/ })).toHaveAttribute("href", "mailto:mgryal.d@gmail.com");
     expect(screen.getByRole("link", { name: /LinkedIn/ })).toHaveAttribute(
       "href",
@@ -17,7 +17,7 @@ describe("Contact", () => {
   });
 
   it("opens external links safely and announces it", () => {
-    render(<Contact profile={content.profile} contact={content.contact} opensInNewTab={content.ui.opensInNewTab} />);
+    render(<Contact contact={content.contact} opensInNewTab={content.ui.opensInNewTab} />);
     const linkedin = screen.getByRole("link", { name: /LinkedIn/ });
     expect(linkedin).toHaveAttribute("target", "_blank");
     expect(linkedin).toHaveAttribute("rel", "noopener noreferrer");
@@ -27,7 +27,7 @@ describe("Contact", () => {
 
   it("never renders a phone link", () => {
     const { container } = render(
-      <Contact profile={content.profile} contact={content.contact} opensInNewTab={content.ui.opensInNewTab} />,
+      <Contact contact={content.contact} opensInNewTab={content.ui.opensInNewTab} />,
     );
     expect(container.innerHTML).not.toMatch(/tel:|\+56/);
   });

@@ -4,18 +4,20 @@ import type { SiteContent } from "./types";
 // may change to "Plhain (ex Kronogram)"
 export const KRONOGRAM_NAME = "Kronogram";
 
+const profile: SiteContent["profile"] = {
+  name: "Maximiliano González",
+  title: "Ingeniero de Software",
+  location: "Temuco, Chile",
+  shortPhrase:
+    "Desarrollo software full-stack con C#/.NET, Node.js, TypeScript y React, desde la API hasta la nube con Azure, Docker y CI/CD.",
+  email: "mgryal.d@gmail.com",
+  linkedin: "https://www.linkedin.com/in/maximiliano-gonzalez-67108418b",
+  github: "https://github.com/mgryal",
+  };
+
 export const es: SiteContent = {
   locale: "es",
-  profile: {
-    name: "Maximiliano González",
-    title: "Ingeniero de Software",
-    location: "Temuco, Chile",
-    shortPhrase:
-      "Desarrollo software full-stack con C#/.NET, Node.js, TypeScript y React, desde la API hasta la nube con Azure, Docker y CI/CD.",
-    email: "mgryal.d@gmail.com",
-    linkedin: "https://www.linkedin.com/in/maximiliano-gonzalez-67108418b",
-    github: "https://github.com/mgryal",
-  },
+  profile,
   brand: { prompt: "mg@portfolio:~$" },
   nav: {
     label: "Navegación principal",
@@ -169,9 +171,9 @@ export const es: SiteContent = {
   contact: {
     intro: "¿Quieres conversar sobre un proyecto o una oportunidad? Escríbeme por cualquiera de estos canales.",
     items: [
-      { id: "email", label: "Correo", display: "mgryal.d@gmail.com" },
-      { id: "linkedin", label: "LinkedIn", display: "maximiliano-gonzalez" },
-      { id: "github", label: "GitHub", display: "github.com/mgryal" },
+      { id: "email", label: "Correo", display: profile.email, href: `mailto:${profile.email}`, external: false },
+      { id: "linkedin", label: "LinkedIn", display: "maximiliano-gonzalez", href: profile.linkedin, external: true },
+      { id: "github", label: "GitHub", display: "github.com/mgryal", href: profile.github, external: true },
     ],
   },
   seo: {
@@ -188,6 +190,7 @@ export const es: SiteContent = {
     present: "PRESENTE",
     privateProject: "Proyecto de trabajo privado",
     opensInNewTab: "(abre en nueva pestaña)",
+    tagsLabel: "Tecnologías",
     projectsLinks: { demo: "Demo", repo: "Repositorio" },
     theme: {
       toLight: "Cambiar a tema claro",

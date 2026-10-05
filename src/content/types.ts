@@ -56,6 +56,17 @@ export interface EducationItem {
   period: string;
 }
 
+export interface ContactChannel {
+  id: "email" | "linkedin" | "github";
+  label: string;
+  /** Visible text for the channel. */
+  display: string;
+  /** Full link target, derived from `profile` in the content file. */
+  href: string;
+  /** External links open in a new tab. */
+  external: boolean;
+}
+
 export interface SiteContent {
   locale: Locale;
   profile: {
@@ -78,7 +89,7 @@ export interface SiteContent {
   education: EducationItem[];
   contact: {
     intro: string;
-    items: { id: "email" | "linkedin" | "github"; label: string; display: string }[];
+    items: ContactChannel[];
   };
   seo: {
     title: string;
@@ -93,6 +104,7 @@ export interface SiteContent {
     present: string;
     privateProject: string;
     opensInNewTab: string;
+    tagsLabel: string;
     projectsLinks: { demo: string; repo: string };
     theme: { toLight: string; toDark: string };
     menu: { open: string; close: string };

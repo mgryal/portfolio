@@ -25,6 +25,15 @@ describe("content safety", () => {
     expect(withoutUrls).not.toMatch(/\+?\d(?:[\s().-]?\d){7,}/);
   });
 
+  it("derives every contact channel href from the profile (single source of truth)", () => {
+    const hrefs = Object.fromEntries(content.contact.items.map((i) => [i.id, i.href]));
+    expect(hrefs).toEqual({
+      email: `mailto:${content.profile.email}`,
+      linkedin: content.profile.linkedin,
+      github: content.profile.github,
+    });
+  });
+
   it("exposes the exact public contact data", () => {
     expect(content.profile.email).toBe("mgryal.d@gmail.com");
     expect(content.profile.linkedin).toBe(

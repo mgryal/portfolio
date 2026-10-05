@@ -10,6 +10,7 @@ const labels = {
   demo: ui.projectsLinks.demo,
   repo: ui.projectsLinks.repo,
   opensInNewTab: ui.opensInNewTab,
+  tagsLabel: ui.tagsLabel,
 };
 
 const base: Project = {

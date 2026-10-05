@@ -3,7 +3,7 @@ import { ExternalLink } from "./ExternalLink";
 
 interface Props {
   project: Project;
-  labels: { privateProject: string; demo: string; repo: string; opensInNewTab: string };
+  labels: { privateProject: string; demo: string; repo: string; opensInNewTab: string; tagsLabel: string };
 }
 
 const linkClass = "text-sm text-accent underline decoration-line-strong underline-offset-4 hover:text-accent-strong";
@@ -14,7 +14,7 @@ export function ProjectCard({ project, labels }: Props) {
     <article className="flex h-full flex-col border border-line bg-surface p-5 transition-colors hover:border-line-strong">
       <h3 className="text-base font-semibold text-fg">{project.title}</h3>
       <p className="mt-2 flex-1 text-sm text-muted">{project.summary}</p>
-      <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tags">
+      <ul className="mt-4 flex flex-wrap gap-2" aria-label={labels.tagsLabel}>
         {project.tags.map((tag) => (
           <li key={tag} className="border border-line-strong bg-accent-soft px-2 py-0.5 text-xs text-accent">
             {tag}

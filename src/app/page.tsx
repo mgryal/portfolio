@@ -37,7 +37,7 @@ export default function Home() {
             <Education items={content.education} />
           </Panel>
           <Panel id="contact" index={6} title={sections.contact.title} meta={meta("contact", content.contact.items.length)}>
-            <Contact profile={profile} contact={content.contact} opensInNewTab={ui.opensInNewTab} />
+            <Contact contact={content.contact} opensInNewTab={ui.opensInNewTab} />
           </Panel>
         </div>
       </main>
