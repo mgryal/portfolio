@@ -55,3 +55,8 @@ The user needs a professional portfolio deployable for free (GitHub Pages / Verc
 
 ## Next step
 User review: check the site visually (no browser available in the writer environment), set `NEXT_PUBLIC_SITE_URL` ([COMPLETAR] URL final), then push and open a PR.
+
+## Review
+- Hero phrase refocused on skills per user feedback (45c2f62).
+- RDD: assessed high (deploy.yml shell); consent granted; 4-lens review approved and acknowledged (lineage review-db0780ff40c7023d, range 9f861ac..3690116). 17 non-blocking advisory findings (contact data duplication, Pages concurrency cancel-in-progress, test naming) left as follow-ups.
+- Pending: visual check at 375/768/1440 in both modes; set NEXT_PUBLIC_SITE_URL.
