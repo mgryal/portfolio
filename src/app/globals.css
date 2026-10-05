@@ -1,26 +1,244 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/theme.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-body), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-display: var(--font-title), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------- base ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--c-bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, var(--hero-glow), transparent 70%),
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
+  background-attachment: fixed;
+  color: var(--c-fg);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* radial vignette */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, var(--vignette) 130%);
+}
+
+/* very faint CRT scanlines */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, var(--scanline-color) 0 1px, transparent 1px 3px);
+}
+
+@media (max-width: 640px) {
+  body::after {
+    opacity: 0.5;
+  }
+  body {
+    background-attachment: scroll;
+  }
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--c-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* ---------- panel: cut corners + HUD brackets ---------- */
+.panel {
+  --cut: 14px;
+  position: relative;
+  background: var(--grad-surface);
+  border: 1px solid var(--line);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--c-accent);
+  pointer-events: none;
+}
+
+.panel::before {
+  top: 6px;
+  right: 6px;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.panel::after {
+  bottom: 6px;
+  left: 6px;
+  border-right: 0;
+  border-top: 0;
+}
+
+@media (max-width: 640px) {
+  .panel {
+    --cut: 8px;
+  }
+  .panel::before,
+  .panel::after {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* ---------- command button ---------- */
+.cmd {
+  --cut: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid var(--c-accent);
+  background: var(--accent-soft);
+  color: var(--c-accent);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+  transition: background 0.15s, color 0.15s;
+}
+
+.cmd:hover {
+  background: var(--c-accent);
+  color: var(--c-bg);
+}
+
+.cmd--ghost {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--c-fg);
+}
+
+/* ---------- glitch (hover only; text duplicated through data-text, aria-hidden by the pseudo content) ---------- */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.glitch::before {
+  color: var(--c-accent);
+}
+
+.glitch::after {
+  color: var(--c-accent-2);
+}
+
+.glitch:hover::before {
+  opacity: 1;
+  animation: glitch-a 0.9s steps(1) 1;
+}
+
+.glitch:hover::after {
+  opacity: 1;
+  animation: glitch-b 0.9s steps(1) 1;
+}
+
+@keyframes glitch-a {
+  0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  15% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, -1px); }
+  40% { clip-path: inset(45% 0 30% 0); transform: translate(3px, 1px); }
+  70% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 0); }
+}
+
+@keyframes glitch-b {
+  0%, 100% { clip-path: inset(100% 0 0 0); transform: translate(0); }
+  25% { clip-path: inset(65% 0 10% 0); transform: translate(3px, 0); }
+  55% { clip-path: inset(20% 0 55% 0); transform: translate(-3px, 1px); }
+  80% { clip-path: inset(0 0 85% 0); transform: translate(2px, 0); }
+}
+
+/* ---------- terminal cursor + status ---------- */
+.cursor::after {
+  content: "\258C";
+  margin-left: 2px;
+  color: var(--c-accent);
+  animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: var(--glow);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.35; }
+}
+
+/* ---------- reduced motion: everything off ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .glitch::before,
+  .glitch::after {
+    display: none;
+  }
 }

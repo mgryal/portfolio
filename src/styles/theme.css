@@ -1,0 +1,118 @@
+/*
+ * THEME — single source of truth for the palette.
+ *
+ * HOW TO CHANGE COLOURS
+ *   Edit ONLY the five --c-* variables in the "EDIT HERE" block, once per mode
+ *   (dark is the default, light is "thermal printer paper"). Every surface,
+ *   border, muted text, glow, gradient, grid and selection colour is derived
+ *   below with color-mix(in oklch, ...), so the whole site follows.
+ *
+ *     --c-bg        page background
+ *     --c-fg        body text (keep it high contrast against --c-bg)
+ *     --c-accent    primary accent (links, headings, glow)
+ *     --c-accent-2  secondary accent (gradients, highlights, focus ring)
+ *     --c-alert     errors / critical states
+ *
+ *   Keep body text and accents at WCAG AA (4.5:1) against --c-bg. `npm test`
+ *   checks this automatically for both modes (tests/theme.test.ts).
+ *
+ *   Note: src/styles/palette.ts mirrors the base hex values for the Open Graph
+ *   image, which cannot read CSS variables. Update it when you change them.
+ */
+
+/* ==== EDIT HERE: base palette ==== */
+:root,
+[data-theme="dark"] {
+  --c-bg: #03080a;
+  --c-fg: #c4dccb;
+  --c-accent: #39ff6a; /* phosphor green */
+  --c-accent-2: #ffb000; /* amber */
+  --c-alert: #ff3b3b;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --c-bg: #f3f0e6; /* thermal paper */
+  --c-fg: #1a1f16; /* ink */
+  --c-accent: #0b6b2a; /* dark green */
+  --c-accent-2: #8a4b00; /* burnt amber */
+  --c-alert: #b3201f;
+  color-scheme: light;
+}
+
+/* ==== DERIVED: do not edit ==== */
+:root {
+  /* surfaces and lines */
+  --surface: color-mix(in oklch, var(--c-bg) 92%, var(--c-fg) 8%);
+  --surface-2: color-mix(in oklch, var(--c-bg) 84%, var(--c-fg) 16%);
+  --line: color-mix(in oklch, var(--c-bg) 78%, var(--c-accent) 22%);
+  --line-strong: color-mix(in oklch, var(--c-bg) 50%, var(--c-accent) 50%);
+
+  /* text */
+  --muted: color-mix(in oklch, var(--c-fg) 76%, var(--c-bg) 24%);
+
+  /* accent variations */
+  --accent-soft: color-mix(in oklch, var(--c-accent) 14%, transparent);
+  --accent-strong: color-mix(in oklch, var(--c-accent) 78%, var(--c-fg) 22%);
+  --accent-2-soft: color-mix(in oklch, var(--c-accent-2) 14%, transparent);
+
+  /* effects (intensity per mode is set in the --fx-* block below) */
+  --glow:
+    0 0 6px color-mix(in oklch, var(--c-accent) var(--fx-glow), transparent),
+    0 0 18px color-mix(in oklch, var(--c-accent) calc(var(--fx-glow) * 0.45), transparent);
+  --grad-accent: linear-gradient(
+    100deg,
+    var(--c-accent),
+    color-mix(in oklch, var(--c-accent) 35%, var(--c-accent-2)) 55%,
+    var(--c-accent-2)
+  );
+  --grad-surface: linear-gradient(
+    160deg,
+    color-mix(in oklch, var(--surface) 92%, transparent),
+    color-mix(in oklch, var(--c-bg) 88%, transparent)
+  );
+  --hero-glow: color-mix(in oklch, var(--c-accent) var(--fx-hero), transparent);
+  --grid-color: color-mix(in oklch, var(--c-accent) var(--fx-grid), transparent);
+  --scanline-color: color-mix(in oklch, var(--c-fg) var(--fx-scan), transparent);
+  --vignette: color-mix(in oklch, var(--c-bg) var(--fx-vignette), black);
+
+  /* interaction */
+  --selection-bg: color-mix(in oklch, var(--c-accent) 35%, var(--c-bg));
+  --focus-ring: color-mix(in oklch, var(--c-accent-2) 90%, var(--c-fg) 10%);
+}
+
+/* effect intensity per mode (dark: neon; light: sober, scanlines nearly invisible) */
+:root,
+[data-theme="dark"] {
+  --fx-glow: 60%;
+  --fx-hero: 13%;
+  --fx-grid: 7%;
+  --fx-scan: 3%;
+  --fx-vignette: 45%;
+}
+
+[data-theme="light"] {
+  --fx-glow: 0%;
+  --fx-hero: 7%;
+  --fx-grid: 6%;
+  --fx-scan: 1.2%;
+  --fx-vignette: 96%;
+}
+
+/* ==== Tailwind v4 mapping: enables bg-surface, text-accent, border-line, ... ==== */
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-fg: var(--c-fg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-muted: var(--muted);
+  --color-accent: var(--c-accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--c-accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+  --color-alert: var(--c-alert);
+  --shadow-glow: var(--glow);
+}
