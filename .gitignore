@@ -42,3 +42,10 @@ next-env.d.ts
 
 # local agent tooling
 .atl/
+.claude/settings.local.json
+.codegraph/
+
+# editors
+.vscode/
+.idea/
+*.swp
